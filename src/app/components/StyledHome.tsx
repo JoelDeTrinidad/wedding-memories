@@ -8,7 +8,7 @@ export const Container = styled.div`
   height: 100vh;
   text-align: center;
   padding: 24px;
-  background-image: url("/boda.jpeg");
+  background-image: url("/Image/boda.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

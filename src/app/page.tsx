@@ -25,7 +25,7 @@ export default function Home() {
     </Content>
     <div className='logo'>
         <Image 
-          src="/logo.svg" 
+          src="/Image/logo.svg" 
           alt="logo" 
           width={100} 
           height={40}
