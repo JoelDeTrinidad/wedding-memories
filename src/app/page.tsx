@@ -8,10 +8,12 @@ import {
   Paragraph,
   Title
 } from '../app/components/StyledHome';
+import Logo from "../app/assets/logo.svg";
+import BgBoda from "../app/assets/boda.jpeg";
 
 export default function Home() {
   return (
-    <Container>
+    <Container $bgImage={BgBoda.src}>
     <Overlay />
     <Content>
       <Title>
@@ -25,7 +27,7 @@ export default function Home() {
     </Content>
     <div className='logo'>
         <Image 
-          src="/Image/logo.svg" 
+          src={Logo} 
           alt="logo" 
           width={100} 
           height={40}

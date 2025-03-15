@@ -1,14 +1,14 @@
 'use client';
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $bgImage: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
   text-align: center;
   padding: 24px;
-  background-image: url("/Image/boda.jpeg");
+  background-image: url(${(props) => props.$bgImage});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
