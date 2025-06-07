@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { db } from "../../firebase/config";
+import { db } from "../../../firebase/config";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 
