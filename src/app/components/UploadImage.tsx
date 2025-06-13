@@ -49,7 +49,7 @@ const UploadImage = () => {
   };
 
   return (
-    <div className="cursor-pointer w-full bg-white my-3 flex items-center">
+    <div className="cursor-pointer w-full bg-white my-3 flex items-center flex-col">
       <button
         onClick={() => inputRef.current?.click()}
         disabled={isUploading}
