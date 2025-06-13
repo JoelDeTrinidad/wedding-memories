@@ -1,36 +1,39 @@
 'use client';
 import styled from "styled-components";
 
-export const Container = styled.div<{ $bgImage: string }>`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   text-align: center;
-  padding: 24px;
-  background-image: url(${(props) => props.$bgImage});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
   .logo {
-    width: 100%;
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: flex-end
+    position: fixed;
+    align-items: end;
   }
 `;
 
-export const Overlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.25);
-`;
-
 export const Content = styled.div`
-  position: relative;
-  z-index: 1;
+    margin-top: 1.3rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  .photo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    img {
+      width: 90%;
+    }
+  }
 `;
 
 export const Title = styled.h1`

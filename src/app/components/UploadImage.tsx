@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import { storage, db } from "../../../firebase/config";
 import {
   ref,
@@ -14,51 +14,53 @@ import {
 } from "firebase/firestore";
 
 const UploadImage = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleUpload = async () => {
-    if (!file) return;
-    setLoading(true);
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
 
     try {
-      const fileRef = ref(storage, `fotos-boda/${file.name}`);
-      await uploadBytes(fileRef, file);
+      for (const file of Array.from(files)) {
+        const fileRef = ref(storage, `fotos-boda/${file.name}`);
+        await uploadBytes(fileRef, file);
+        const downloadURL = await getDownloadURL(fileRef);
 
-      const downloadURL = await getDownloadURL(fileRef);
+        await addDoc(collection(db, "fotos"), {
+          url: downloadURL,
+          createdAt: Timestamp.now(),
+          name: file.name,
+        });
+      }
 
-      await addDoc(collection(db, "fotos"), {
-        url: downloadURL,
-        createdAt: Timestamp.now(),
-        name: file.name,
-      });
-
-      alert("Imagen subida correctamente ✅");
-      setFile(null);
+      alert("Imágenes subidas correctamente ✅");
     } catch (error) {
-      console.error("Error al subir:", error);
-      alert("Error al subir la imagen");
+      console.error("Error al subir imágenes:", error);
+      alert("Error al subir imágenes");
     } finally {
-      setLoading(false);
+      // Limpia el input para permitir volver a seleccionar el mismo archivo
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
     }
   };
 
   return (
-    <div>
-      <h2>Subir imagen de boda</h2>
+    <div className="cursor-pointer w-full bg-white my-3">
+      <button 
+        onClick={() => inputRef.current?.click()}
+        className="cursor-pointer text-black w-full">
+        Seleccionar y Subir Imágenes
+      </button>
+
       <input
+        ref={inputRef}
         type="file"
         accept="image/*"
-        onChange={(e) =>
-          setFile(e.target.files ? e.target.files[0] : null)
-        }
+        multiple
+        className="hidden"
+        onChange={handleFileChange}
       />
-      <button
-        onClick={handleUpload}
-        disabled={!file || loading}
-      >
-        {loading ? "Subiendo..." : "Subir Imagen"}
-      </button>
     </div>
   );
 };

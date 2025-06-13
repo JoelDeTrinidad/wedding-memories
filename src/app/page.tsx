@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { 
   Container,
   Content,
-  Overlay,
   Paragraph,
   Title
 } from '../app/components/StyledHome';
@@ -17,11 +16,13 @@ import BgBoda from "../app/assets/boda.png";
 
 export default function Home() {
   return (
-    <Container $bgImage={BgBoda.src}>
-    <Overlay />
+    <Container>
     <Content>
+      <div className='photo-container'>
+        <Image src={BgBoda} alt='photo' />
+      </div>
       <Title>
-        Momentos de boda de Anjelica y Joel 💍
+        Momentos de boda de Anjelica y Joel
       </Title>
       <Paragraph>
           Familia y amigos, gracias por celebrar con nosotros y ser parte de nuestra historia.  
@@ -29,13 +30,10 @@ export default function Home() {
           Gracias por compartirnos tus fotos para que podamos revivir el momento desde tu teléfono.  
         </Paragraph>
         <UploadImage />
-      <hr style={{ margin: "2rem 0" }} />
       <ImageGallery />
     </Content>
     <div className='logo'>
-        <Image 
-          src={Logo} 
-          alt="logo" 
+        <Logo 
           width={100} 
           height={40}
         />
