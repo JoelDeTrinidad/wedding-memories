@@ -63,7 +63,7 @@ const UploadImage = () => {
           justify-center 
           items-center
           relative
-          top-[3px]`}
+          top-[4px]`}
       >
         {isUploading ? "Subiendo imágenes..." : "Haz click aqui para subir tus fotos"}
       </button>
