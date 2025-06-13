@@ -39,7 +39,7 @@ export const Content = styled.div`
 export const Title = styled.h1`
   font-size: 3rem;
   font-weight: bold;
-  color: #002a60;
+  color: white;
   margin-bottom: 1rem;
   font-family: "Great Vibes", cursive;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);

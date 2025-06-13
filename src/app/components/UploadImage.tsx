@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { storage, db } from "../../../firebase/config";
 import {
   ref,
@@ -15,10 +15,13 @@ import {
 
 const UploadImage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files || files.length === 0) return;
+
+    setIsUploading(true);
 
     try {
       for (const file of Array.from(files)) {
@@ -33,12 +36,12 @@ const UploadImage = () => {
         });
       }
 
-      alert("Imágenes subidas correctamente ✅");
+      alert("Gracias por compartir tus fotos!");
     } catch (error) {
       console.error("Error al subir imágenes:", error);
       alert("Error al subir imágenes");
     } finally {
-      // Limpia el input para permitir volver a seleccionar el mismo archivo
+      setIsUploading(false);
       if (inputRef.current) {
         inputRef.current.value = "";
       }
@@ -46,11 +49,23 @@ const UploadImage = () => {
   };
 
   return (
-    <div className="cursor-pointer w-full bg-white my-3">
-      <button 
+    <div className="cursor-pointer w-full bg-white my-3 flex items-center">
+      <button
         onClick={() => inputRef.current?.click()}
-        className="cursor-pointer text-black w-full">
-        Seleccionar y Subir Imágenes
+        disabled={isUploading}
+        className={`
+          cursor-pointer 
+          text-black w-full 
+          ${isUploading ? "opacity-50" : ""}
+          font-black
+          font-[fantasy]
+          flex 
+          justify-center 
+          items-center
+          relative
+          top-[3px]`}
+      >
+        {isUploading ? "Subiendo imágenes..." : "Haz click aqui para subir tus fotos"}
       </button>
 
       <input
@@ -60,7 +75,13 @@ const UploadImage = () => {
         multiple
         className="hidden"
         onChange={handleFileChange}
+        disabled={isUploading}
       />
+      {isUploading && (
+        <div className="mt-3 text-center text-blue-600 font-semibold">
+          ⏳ Subiendo imágenes...
+        </div>
+      )}
     </div>
   );
 };
